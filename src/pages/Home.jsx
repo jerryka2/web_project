@@ -1,4 +1,5 @@
 import React from 'react'
+import Banner from '../components/Banner'
 import Header from '../components/Header'
 import OurBrand from '../components/OurBrand'
 import TopStation from '../components/TopStation'
@@ -10,6 +11,7 @@ const Home = () => {
             <OurBrand />
             {/* <TopStation /> */}
             <TopStation />
+            <Banner />
         </div>
     )
 }
