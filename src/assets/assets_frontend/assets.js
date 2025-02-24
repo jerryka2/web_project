@@ -4,7 +4,6 @@ import arrow_icon from './arrow_icon.svg'
 import chats_icon from './chats_icon.svg'
 import contact_image from './contact_image.png'
 import cross_icon from './cross_icon.png'
-import Dermatologist from './Dermatologist.svg'
 import doc1 from './doc1.png'
 import doc10 from './doc10.png'
 import doc11 from './doc11.png'
@@ -21,16 +20,17 @@ import doc7 from './doc7.png'
 import doc8 from './doc8.png'
 import doc9 from './doc9.png'
 import dropdown_icon from './dropdown_icon.svg'
-import Gastroenterologist from './Gastroenterologist.svg'
-import General_physician from './General_physician.svg'
 import group_profiles from './group_profiles.png'
-import Gynecologist from './Gynecologist.svg'
 import header_img from './header_img.png'
 import info_icon from './info_icon.svg'
 import logo from './logo.svg'
+import logo_audi from './logo_audi.png'
+import logo_byd from './logo_byd.png'
+import logo_kia from './logo_kia.png'
+import logo_mg from './logo_mg.png'
+import logo_porsche from './logo_porsche.jpg'
+import logo_tesla from './logo_tesla.png'
 import menu_icon from './menu_icon.svg'
-import Neurologist from './Neurologist.svg'
-import Pediatricians from './Pediatricians.svg'
 import profile_pic from './profile_pic.png'
 import razorpay_logo from './razorpay_logo.png'
 import stripe_logo from './stripe_logo.png'
@@ -60,28 +60,28 @@ export const assets = {
 
 export const specialityData = [
     {
-        speciality: 'General physician',
-        image: General_physician
+        speciality: 'Tesla',
+        image: logo_tesla
     },
     {
-        speciality: 'Gynecologist',
-        image: Gynecologist
+        speciality: 'MG',
+        image: logo_mg
     },
     {
-        speciality: 'Dermatologist',
-        image: Dermatologist
+        speciality: 'BYD',
+        image: logo_byd
     },
     {
-        speciality: 'Pediatricians',
-        image: Pediatricians
+        speciality: 'AUDI',
+        image: logo_audi
     },
     {
-        speciality: 'Neurologist',
-        image: Neurologist
+        speciality: 'PORSCHE',
+        image: logo_porsche
     },
     {
-        speciality: 'Gastroenterologist',
-        image: Gastroenterologist
+        speciality: 'KIA',
+        image: logo_kia
     },
 ]
 
