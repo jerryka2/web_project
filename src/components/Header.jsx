@@ -18,7 +18,7 @@ const Header = () => {
                     <img
                         src={assets.group_profiles}
                         alt="Group Profiles"
-                        className='w-20 h-12 md:w-28 md:h-14 '
+                        className='w-30 h-12 md:w-30 md:h-14 '
                     />
                 </div>
 
