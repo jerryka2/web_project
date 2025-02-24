@@ -1,9 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { evStations } from '../assets/assets_frontend/assets'; // Renamed for clarity
+import { useAppContext } from '../context/AppContext';
 
 const TopStation = () => {
     const navigate = useNavigate();
+    const { evStations } = useAppContext();
 
     return (
         <div className="text-center py-12 bg-gradient-to-b from-gray-50 to-gray-100">
@@ -34,7 +35,7 @@ const TopStation = () => {
 
                         {/* Station Info */}
                         <div className="mt-5 text-left">
-                            {/* Availability Badge (Properly Positioned) */}
+                            {/* Availability Badge */}
                             <div className="mb-2">
                                 <span className="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full">
                                     🟢 Available
@@ -47,7 +48,7 @@ const TopStation = () => {
                             {/* Charging Type & Power */}
                             <p className="text-gray-600 text-sm mt-1">{item.charging_type} | {item.power_capacity}</p>
 
-                            {/* Location (Moved Below) */}
+                            {/* Location */}
                             <p className="text-sm text-gray-500 mt-2">
                                 📍 {item.address.line1}, {item.address.line2}
                             </p>
@@ -57,7 +58,13 @@ const TopStation = () => {
             </div>
 
             {/* View More Button */}
-            <button className="mt-10 bg-green-600 text-white px-8 py-3 rounded-lg font-medium shadow-md hover:bg-green-700 hover:scale-105 transition">
+            <button
+                onClick={() => {
+                    navigate('/stations');
+                    window.scrollTo(0, 0);
+                }}
+                className="mt-10 bg-green-600 text-white px-8 py-3 rounded-lg font-medium shadow-md hover:bg-green-700 hover:scale-105 transition"
+            >
                 View More Stations
             </button>
         </div>
