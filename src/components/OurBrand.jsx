@@ -1,8 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { specialityData } from '../assets/assets_frontend/assets';
 
 const OurBrand = () => {
+    const navigate = useNavigate();
+
+    const handleFilterClick = (brand) => {
+        navigate(`/stations/${brand.toLowerCase()}`); // ✅ Ensures lowercase path
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
     return (
         <div id="our-brand" className="text-center py-12 bg-gray-100">
             {/* Section Title */}
@@ -19,18 +26,19 @@ const OurBrand = () => {
             {/* Brand Cards Section */}
             <div className="flex flex-wrap justify-center gap-8 mt-8">
                 {specialityData.map((item, index) => (
-                    <Link onClick={() => scrollTo(0, 0)}
+                    <button
                         key={index}
-                        to={`/Station/${item.speciality}`}
-                        className="flex flex-col items-center bg-white p-5 rounded-2xl shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-white w-40"
+                        onClick={() => handleFilterClick(item.brand)}
+                        className="flex flex-col items-center bg-white p-5 rounded-2xl shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:bg-gray-50 w-40"
+                        aria-label={`Filter by ${item.brand}`}
                     >
                         <img
                             src={item.image}
-                            alt={item.speciality}
+                            alt={item.brand}
                             className="w-20 h-20 object-cover rounded-full mb-3"
                         />
-                        <p className="text-gray-700 font-semibold text-lg">{item.speciality}</p>
-                    </Link>
+                        <p className="text-gray-700 font-semibold text-lg">{item.brand}</p>
+                    </button>
                 ))}
             </div>
         </div>
