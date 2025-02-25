@@ -60,30 +60,31 @@ export const assets = {
 
 export const specialityData = [
     {
-        speciality: 'Tesla',
+        brand: 'Tesla',
         image: logo_tesla
     },
     {
-        speciality: 'MG',
+        brand: 'MG',
         image: logo_mg
     },
     {
-        speciality: 'BYD',
+        brand: 'BYD',
         image: logo_byd
     },
     {
-        speciality: 'AUDI',
+        brand: 'Audi',
         image: logo_audi
     },
     {
-        speciality: 'PORSCHE',
+        brand: 'Porsche', // ✅ Fixed Typo
         image: logo_porsche
     },
     {
-        speciality: 'KIA',
+        brand: 'Kia',
         image: logo_kia
     },
-]
+];
+
 
 export const evStations = [
     {
@@ -91,6 +92,7 @@ export const evStations = [
         name: 'GreenCharge EV Station',
         image: ev1, // Replace with the actual image file
         charging_type: 'Fast Charging',
+        brand: 'Tesla',
         power_capacity: '150 kW',
         availability: '24/7',
         about: 'GreenCharge EV Station provides high-speed charging solutions with state-of-the-art technology. Our station ensures a seamless experience with multiple charging ports, real-time availability tracking, and affordable pricing.',
@@ -106,6 +108,7 @@ export const evStations = [
         name: 'VoltCharge EV Hub',
         image: ev2, // Replace with actual image file
         charging_type: 'Ultra-Fast Charging',
+        brand: 'Tesla',
         power_capacity: '250 kW',
         availability: '24/7',
         about: 'VoltCharge EV Hub offers one of the fastest EV charging solutions, ensuring minimal wait time and maximum efficiency. With advanced technology and seamless digital payment options, we provide a hassle-free charging experience.',
@@ -121,6 +124,7 @@ export const evStations = [
         name: 'Himalayan Charge Station',
         image: ev3, // Replace with actual image file
         charging_type: 'Standard & Fast Charging',
+        brand: 'BYD',
         power_capacity: '120 kW',
         availability: '6 AM - 10 PM',
         about: 'Himalayan Charge Station provides a reliable EV charging network in Nepal, offering both standard and fast charging options. With a commitment to sustainability and efficiency, we ensure a seamless experience for all EV users.',
@@ -136,6 +140,7 @@ export const evStations = [
         name: 'Bhaktapur FastCharge Hub',
         image: ev4, // Replace with actual image file
         charging_type: 'Fast & Standard Charging',
+        brand: 'Tesla',
         power_capacity: '180 kW',
         availability: '5 AM - 11 PM',
         about: 'Bhaktapur FastCharge Hub provides an efficient and reliable EV charging service for commuters and travelers. Located near historical landmarks, we offer both fast and standard charging options to suit every need.',
@@ -151,6 +156,7 @@ export const evStations = [
         name: 'Lalitpur EV QuickCharge',
         image: ev5, // Replace with actual image file
         charging_type: 'Ultra-Fast & Standard Charging',
+        brand: 'MG',
         power_capacity: '220 kW',
         availability: '24/7',
         about: 'Lalitpur EV QuickCharge is one of Nepal’s most advanced charging hubs, providing ultra-fast and standard charging options. Our cutting-edge facility ensures reduced wait times and a seamless EV charging experience.',
@@ -166,6 +172,7 @@ export const evStations = [
         name: 'Dharan SmartCharge Station',
         image: ev6, // Replace with actual image file
         charging_type: 'Fast & Standard Charging',
+        brand: 'Tesla',
         power_capacity: '180 kW',
         availability: '6 AM - 11 PM',
         about: 'Dharan SmartCharge Station is a modern EV charging hub offering efficient charging solutions for travelers and residents. Equipped with smart payment options and real-time status updates, it ensures a smooth charging experience.',
@@ -181,6 +188,7 @@ export const evStations = [
         name: 'Janakpur RapidCharge Station',
         image: ev7, // Replace with actual image file
         charging_type: 'Ultra-Fast & Standard Charging',
+        brand: 'MG',
         power_capacity: '200 kW',
         availability: '24/7',
         about: 'Janakpur RapidCharge Station offers high-speed EV charging with cutting-edge technology. Strategically located for long-distance travelers, our station provides seamless payment options and a comfortable waiting area.',
@@ -196,6 +204,7 @@ export const evStations = [
         name: 'Biratnagar EV Power Hub',
         image: ev8, // Replace with actual image file
         charging_type: 'Superfast & Standard Charging',
+        brand: 'MG',
         power_capacity: '220 kW',
         availability: '5 AM - 11 PM',
         about: 'Biratnagar EV Power Hub is a state-of-the-art EV charging station offering both superfast and standard charging options. Designed for efficiency and convenience, our station ensures smooth, quick, and reliable charging services.',
@@ -211,6 +220,7 @@ export const evStations = [
         name: 'Itahari EV Smart Station',
         image: ev9, // Replace with actual image file
         charging_type: 'Fast & Standard Charging',
+        brand: 'BYD',
         power_capacity: '150 kW',
         availability: '6 AM - 10 PM',
         about: 'Itahari EV Smart Station is a reliable charging hub for EV owners, providing high-speed charging with real-time status updates. Conveniently located, we ensure a smooth and efficient charging experience for all electric vehicle users.',
@@ -226,6 +236,7 @@ export const evStations = [
         name: 'Damak EV Charging Hub',
         image: ev10, // Replace with actual image file
         charging_type: 'Ultra-Fast & Standard Charging',
+        brand: 'BYD',
         power_capacity: '180 kW',
         availability: '5 AM - 11 PM',
         about: 'Damak EV Charging Hub is a modern charging station designed to serve daily commuters and long-distance travelers. Offering ultra-fast and standard charging, we ensure quick and efficient charging with advanced technology and user-friendly payment options.',
@@ -241,6 +252,7 @@ export const evStations = [
         name: 'Nepalgunj EV Power Station',
         image: ev11, // Replace with actual image file
         charging_type: 'Superfast & Standard Charging',
+        brand: 'Porsche',
         power_capacity: '200 kW',
         availability: '6 AM - 10 PM',
         about: 'Nepalgunj EV Power Station is a cutting-edge charging hub designed to meet the needs of electric vehicle owners. With fast and standard charging options, we ensure a seamless and efficient charging experience for all users.',
@@ -255,6 +267,7 @@ export const evStations = [
         name: 'Hetauda EV Charging Hub',
         image: ev12, // Replace with actual image file
         charging_type: 'Ultra-Fast & Standard Charging',
+        brand: 'Porsche',
         power_capacity: '220 kW',
         availability: '24/7',
         about: 'Hetauda EV Charging Hub provides top-notch EV charging solutions with ultra-fast and standard charging options. Strategically located on a major route, it ensures easy access and a seamless experience for all electric vehicle users.',
@@ -270,6 +283,7 @@ export const evStations = [
         name: 'Dhangadhi EV Smart Hub',
         image: ev13, // Replace with actual image file
         charging_type: 'Fast & Standard Charging',
+        brand: 'Audi',
         power_capacity: '150 kW',
         availability: '6 AM - 10 PM',
         about: 'Dhangadhi EV Smart Hub is a leading EV charging station in Sudurpashchim, offering fast and standard charging options with digital payment facilities. Conveniently located, we ensure a smooth and hassle-free charging experience.',
@@ -284,6 +298,7 @@ export const evStations = [
         name: 'Birgunj EV Charging Plaza',
         image: ev14, // Replace with actual image file
         charging_type: 'Ultra-Fast & Standard Charging',
+        brand: 'Kia',
         power_capacity: '200 kW',
         availability: '24/7',
         about: 'Birgunj EV Charging Plaza is strategically positioned near the India-Nepal border, ensuring reliable charging services for cross-border and local travelers. Equipped with the latest technology, it offers ultra-fast and standard charging solutions.',
@@ -298,6 +313,7 @@ export const evStations = [
         name: 'Tulsipur GreenCharge Station',
         image: ev15, // Replace with actual image file
         charging_type: 'Fast & Standard Charging',
+        brand: 'Kia',
         power_capacity: '140 kW',
         availability: '5 AM - 11 PM',
         about: 'Tulsipur GreenCharge Station is a well-equipped charging facility, serving travelers and commuters with its fast and standard charging points. With convenient access and eco-friendly solutions, we make EV charging effortless.',
