@@ -7,6 +7,7 @@ import Appointment from './pages/Appointment'
 import Contact from './pages/Contact'
 import Home from './pages/Home'
 import Login from './pages/Login'
+import Map from './pages/Map'
 import MyAppointments from './pages/MyAppointments'
 import MyProfile from './pages/MyProfile'
 import Station from './pages/Station'
@@ -22,6 +23,7 @@ const App = () => {
         <Route path='/stations/:brand' element={<Station />} />
         <Route path='/login' element={<Login />} />
         <Route path='/about' element={<About />} />
+        <Route path='/map' element={<Map />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/myprofile' element={<MyProfile />} />
         <Route path='/appointments' element={<Appointment />} />

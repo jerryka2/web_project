@@ -1,38 +1,37 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { specialityData } from '../assets/assets_frontend/assets'; // Import brand data
+import { specialityData } from '../assets/assets_frontend/assets';
 import { AppContext } from '../context/AppContext';
 
 const Station = () => {
-    const { brand } = useParams(); // Get selected brand from URL
+    const { brand } = useParams();
     const navigate = useNavigate();
     const { evStations } = useContext(AppContext);
     const [filterStation, setFilterStation] = useState([]);
-    const [selectedBrand, setSelectedBrand] = useState(brand || ""); // ✅ Keep Track of Selected Brand
+    const [showFilter, setShowFilter] = useState(false);
+    const [selectedBrand, setSelectedBrand] = useState(brand || "");
 
-    // Function to Apply Filters Based on Selected Brand
+    // Apply brand filter
     useEffect(() => {
         let filteredStations = evStations;
-
         if (selectedBrand) {
             filteredStations = evStations.filter(station =>
                 station.brand.toLowerCase() === selectedBrand.toLowerCase()
             );
         }
-
         setFilterStation(filteredStations);
-    }, [evStations, selectedBrand]); // ✅ Runs when stations or brand selection changes
+    }, [evStations, selectedBrand]);
 
-    // ✅ Fix: Handle Brand Selection & Refresh for "All Brands"
+    // Handle brand selection
     const handleBrandClick = (newBrand) => {
         if (newBrand === "all") {
-            setSelectedBrand(""); // ✅ Reset Brand Selection
+            setSelectedBrand("");
             navigate(`/stations`);
-            window.location.reload(); // ✅ Force Refresh the Page
-        } else if (selectedBrand !== newBrand.toLowerCase()) {
-            setSelectedBrand(newBrand.toLowerCase()); // ✅ Update Selected Brand
+        } else {
+            setSelectedBrand(newBrand.toLowerCase());
             navigate(`/stations/${newBrand.toLowerCase()}`);
         }
+        setShowFilter(false); // Close filter panel after selection
     };
 
     return (
@@ -42,30 +41,75 @@ const Station = () => {
                 ⚡ Browse {selectedBrand ? selectedBrand.charAt(0).toUpperCase() + selectedBrand.slice(1) : 'All'} EV Charging Stations
             </h1>
 
-            {/* ======== Brand Selection (Now in Row) ======== */}
-            <div className="flex flex-wrap justify-center gap-4 my-6">
-                {/* "All Brands" Option */}
+            {/* ======= Mobile Filter Button (Positioned on Left) ======= */}
+            <div className="md:hidden flex justify-start mt-4">
+                <button
+                    onClick={() => setShowFilter(true)}
+                    className="bg-green-500 text-white px-5 py-2 rounded-md font-medium shadow-md hover:bg-green-600 transition"
+                >
+                    Filters
+                </button>
+            </div>
+
+            {/* ======== Brand Selection for Desktop (Hidden on Mobile) ======== */}
+            <div className="hidden md:flex flex-wrap justify-center gap-4 my-6">
                 <button
                     onClick={() => handleBrandClick("all")}
                     className={`px-6 py-3 border rounded-lg font-medium transition 
-                        ${selectedBrand === "" ? 'bg-blue-100 border-blue-500 text-blue-800' : 'border-gray-300 hover:bg-gray-100'}`}
+                        ${selectedBrand === "" ? 'bg-green-500 text-white' : 'border-gray-300 hover:bg-gray-100'}`}
                 >
                     All Brands
                 </button>
-
                 {specialityData.map((item, index) => (
                     <button
                         key={index}
                         onClick={() => handleBrandClick(item.brand)}
                         className={`px-6 py-3 border rounded-lg text-gray-700 font-medium transition 
                             ${selectedBrand === item.brand.toLowerCase()
-                                ? 'bg-blue-100 border-blue-500 text-blue-800'
+                                ? 'bg-green-500 text-white'
                                 : 'border-gray-300 hover:bg-gray-100'
                             }`}
                     >
                         {item.brand}
                     </button>
                 ))}
+            </div>
+
+            {/* ======= Mobile Filter Panel (Slide-in from Right) ======= */}
+            <div className={`fixed inset-0 bg-black bg-opacity-50 z-50 transition-opacity ${showFilter ? "opacity-100 visible" : "opacity-0 invisible"}`}>
+                <div className={`fixed right-0 top-0 w-3/4 sm:w-1/2 h-full bg-white shadow-lg transform transition-transform ${showFilter ? "translate-x-0" : "translate-x-full"} duration-300`}>
+                    {/* Close Button & Title */}
+                    <div className="flex justify-between items-center p-6 border-b border-gray-200">
+                        <h2 className="text-lg font-semibold">Filter by Brand</h2>
+                        <button onClick={() => setShowFilter(false)} className="text-gray-500 hover:text-gray-800 transition">
+                            ✖
+                        </button>
+                    </div>
+
+                    {/* Brand Selection */}
+                    <div className="p-6 flex flex-col gap-4">
+                        <button
+                            onClick={() => handleBrandClick("all")}
+                            className={`px-6 py-3 border rounded-lg font-medium transition 
+                                ${selectedBrand === "" ? 'bg-green-500 text-white' : 'border-gray-300 hover:bg-gray-100'}`}
+                        >
+                            All Brands
+                        </button>
+                        {specialityData.map((item, index) => (
+                            <button
+                                key={index}
+                                onClick={() => handleBrandClick(item.brand)}
+                                className={`px-6 py-3 border rounded-lg text-gray-700 font-medium transition 
+                                    ${selectedBrand === item.brand.toLowerCase()
+                                        ? 'bg-green-500 text-white'
+                                        : 'border-gray-300 hover:bg-gray-100'
+                                    }`}
+                            >
+                                {item.brand}
+                            </button>
+                        ))}
+                    </div>
+                </div>
             </div>
 
             {/* ======== EV Stations Grid ======== */}
