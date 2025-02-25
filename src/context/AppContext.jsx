@@ -13,8 +13,11 @@ const AppContextProvider = ({ children }) => {
         }, 1000); // Simulated delay
     }, []);
 
+    const currencySymbol = "$";
+
     const value = {
-        evStations
+        evStations,
+        currencySymbol
     };
 
     return (
