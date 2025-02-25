@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import Footor from './components/Footor'
 import Navbar from './components/Navbar'
 import About from './pages/About'
+import Appointment from './pages/Appointment'
 import Contact from './pages/Contact'
 import Home from './pages/Home'
 import Login from './pages/Login'
@@ -18,13 +19,14 @@ const App = () => {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/stations' element={<Station />} />
-        <Route path='/stations/:locations' element={<Station />} />
+        <Route path='/stations/:brand' element={<Station />} />
         <Route path='/login' element={<Login />} />
         <Route path='/about' element={<About />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/myprofile' element={<MyProfile />} />
+        <Route path='/appointments' element={<Appointment />} />
         <Route path='/my-appointments' element={<MyAppointments />} />
-        <Route path='/appointments/:statId' element={<MyAppointments />} />
+        <Route path='/appointments/:statId' element={<Appointment />} />
       </Routes>
       <Footor />
     </div>
