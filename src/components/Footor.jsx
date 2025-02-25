@@ -3,8 +3,8 @@ import { assets } from '../assets/assets_frontend/assets';
 
 const Footer = () => {
     return (
-        <footer className="bg-white text-gray-600 py-10">
-            <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <footer className="bg-white text-gray-600 py-12">
+            <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-3 gap-12">
 
                 {/* <!-- Left Section --> */}
                 <div>
@@ -17,10 +17,10 @@ const Footer = () => {
                     </p>
                 </div>
 
-                {/* <!-- Center Section (Quick Links) --> */}
+                {/* <!-- Center Section (Quick Links) with Increased Gap --> */}
                 <div>
-                    <h3 className="text-lg font-semibold mb-3">Quick Links</h3>
-                    <ul className="text-gray-400 space-y-2">
+                    <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul className="text-gray-400 space-y-4"> {/* Increased gap here */}
                         <li className="hover:text-green-400 transition cursor-pointer">Home</li>
                         <li className="hover:text-green-400 transition cursor-pointer">Find a Station</li>
                         <li className="hover:text-green-400 transition cursor-pointer">Pricing</li>
@@ -31,16 +31,18 @@ const Footer = () => {
 
                 {/* <!-- Right Section (Contact) --> */}
                 <div>
-                    <h3 className="text-lg font-semibold mb-3">Contact Us</h3>
-                    <p className="text-gray-400 text-sm">📍 Kathmandu, Nepal</p>
-                    <p className="text-gray-400 text-sm">📧 support@evcharging.com</p>
-                    <p className="text-gray-400 text-sm">📞 +977-9800000000</p>
+                    <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
+                    <div className="space-y-4"> {/* Increased gap here */}
+                        <p className="text-gray-400 text-sm">📍 Kathmandu, Nepal</p>
+                        <p className="text-gray-400 text-sm">📧 support@evcharging.com</p>
+                        <p className="text-gray-400 text-sm">📞 +977-9800000000</p>
+                    </div>
                 </div>
 
             </div>
 
             {/* Copyright Section */}
-            <div className="text-center text-gray-500 text-sm mt-8 border-t border-gray-700 pt-4">
+            <div className="text-center text-gray-500 text-sm mt-10 border-t border-gray-700 pt-4">
                 © 2025 Prescripto. All Rights Reserved.
             </div>
         </footer>
