@@ -90,13 +90,15 @@ export const evStations = [
     {
         _id: 'ev1',
         name: 'GreenCharge EV Station',
-        image: ev1, // Replace with the actual image file
+        email: 'greencharge@evstations.com',
+        password: 'GreenCharge@123',
+        image: ev1,
         charging_type: 'Fast Charging',
         brand: 'Tesla',
         power_capacity: '150 kW',
         availability: '24/7',
-        about: 'GreenCharge EV Station provides high-speed charging solutions with state-of-the-art technology. Our station ensures a seamless experience with multiple charging ports, real-time availability tracking, and affordable pricing.',
-        pricing_per_kWh: 0.25, // Cost per kWh in $
+        about: 'High-speed charging solutions with multiple charging ports, real-time tracking, and affordable pricing.',
+        pricing_per_kWh: 33,
         address: {
             line1: '123 Green Energy Road',
             line2: 'Downtown, New York City, NY'
@@ -106,13 +108,15 @@ export const evStations = [
     {
         _id: 'ev2',
         name: 'VoltCharge EV Hub',
-        image: ev2, // Replace with actual image file
+        email: 'voltcharge@evstations.com',
+        password: 'VoltCharge@123',
+        image: ev2,
         charging_type: 'Ultra-Fast Charging',
         brand: 'Tesla',
         power_capacity: '250 kW',
         availability: '24/7',
-        about: 'VoltCharge EV Hub offers one of the fastest EV charging solutions, ensuring minimal wait time and maximum efficiency. With advanced technology and seamless digital payment options, we provide a hassle-free charging experience.',
-        pricing_per_kWh: 0.30, // Cost per kWh in $
+        about: 'One of the fastest EV charging solutions, ensuring minimal wait time and maximum efficiency.',
+        pricing_per_kWh: 40,
         address: {
             line1: '27th Cross, Volt Drive',
             line2: 'Energy District, London'
@@ -122,13 +126,15 @@ export const evStations = [
     {
         _id: 'ev3',
         name: 'Himalayan Charge Station',
-        image: ev3, // Replace with actual image file
+        email: 'himalayancharge@evstations.com',
+        password: 'HimalayanCharge@123',
+        image: ev3,
         charging_type: 'Standard & Fast Charging',
         brand: 'BYD',
         power_capacity: '120 kW',
         availability: '6 AM - 10 PM',
-        about: 'Himalayan Charge Station provides a reliable EV charging network in Nepal, offering both standard and fast charging options. With a commitment to sustainability and efficiency, we ensure a seamless experience for all EV users.',
-        pricing_per_kWh: 0.20, // Cost per kWh in $
+        about: 'Reliable EV charging in Nepal with standard and fast charging options.',
+        pricing_per_kWh: 26,
         address: {
             line1: '37th Cross, Thamel',
             line2: 'Kathmandu, Nepal'
@@ -138,13 +144,15 @@ export const evStations = [
     {
         _id: 'ev4',
         name: 'Bhaktapur FastCharge Hub',
-        image: ev4, // Replace with actual image file
+        email: 'bhaktapurcharge@evstations.com',
+        password: 'BhaktapurCharge@123',
+        image: ev4,
         charging_type: 'Fast & Standard Charging',
         brand: 'Tesla',
         power_capacity: '180 kW',
         availability: '5 AM - 11 PM',
-        about: 'Bhaktapur FastCharge Hub provides an efficient and reliable EV charging service for commuters and travelers. Located near historical landmarks, we offer both fast and standard charging options to suit every need.',
-        pricing_per_kWh: 0.28, // Cost per kWh in $
+        about: 'Reliable EV charging service for commuters and travelers near historical landmarks.',
+        pricing_per_kWh: 37,
         address: {
             line1: 'Kamalbinayak Road, Bhaktapur',
             line2: 'Bagmati Province, Nepal'
@@ -154,13 +162,15 @@ export const evStations = [
     {
         _id: 'ev5',
         name: 'Lalitpur EV QuickCharge',
-        image: ev5, // Replace with actual image file
+        email: 'lalitpurev@evstations.com',
+        password: 'LalitpurEV@123',
+        image: ev5,
         charging_type: 'Ultra-Fast & Standard Charging',
         brand: 'MG',
         power_capacity: '220 kW',
         availability: '24/7',
-        about: 'Lalitpur EV QuickCharge is one of Nepal’s most advanced charging hubs, providing ultra-fast and standard charging options. Our cutting-edge facility ensures reduced wait times and a seamless EV charging experience.',
-        pricing_per_kWh: 0.32, // Cost per kWh in $
+        about: 'One of Nepal’s most advanced charging hubs with ultra-fast charging.',
+        pricing_per_kWh: 42,
         address: {
             line1: 'Pulchowk Road, Lalitpur',
             line2: 'Bagmati Province, Nepal'
@@ -170,13 +180,15 @@ export const evStations = [
     {
         _id: 'ev6',
         name: 'Dharan SmartCharge Station',
-        image: ev6, // Replace with actual image file
+        email: 'dharanev@evstations.com',
+        password: 'DharanEV@123',
+        image: ev6,
         charging_type: 'Fast & Standard Charging',
         brand: 'Tesla',
         power_capacity: '180 kW',
         availability: '6 AM - 11 PM',
-        about: 'Dharan SmartCharge Station is a modern EV charging hub offering efficient charging solutions for travelers and residents. Equipped with smart payment options and real-time status updates, it ensures a smooth charging experience.',
-        pricing_per_kWh: 0.28, // Cost per kWh in $
+        about: 'Smart EV charging hub with efficient payment options and real-time status updates.',
+        pricing_per_kWh: 37,
         address: {
             line1: 'Bishal Chowk, Dharan',
             line2: 'Province 1, Nepal'
@@ -186,13 +198,15 @@ export const evStations = [
     {
         _id: 'ev7',
         name: 'Janakpur RapidCharge Station',
-        image: ev7, // Replace with actual image file
+        email: 'janakpurev@evstations.com',
+        password: 'JanakpurEV@123',
+        image: ev7,
         charging_type: 'Ultra-Fast & Standard Charging',
         brand: 'MG',
         power_capacity: '200 kW',
         availability: '24/7',
-        about: 'Janakpur RapidCharge Station offers high-speed EV charging with cutting-edge technology. Strategically located for long-distance travelers, our station provides seamless payment options and a comfortable waiting area.',
-        pricing_per_kWh: 0.30, // Cost per kWh in $
+        about: 'Strategically located high-speed EV charging for long-distance travelers.',
+        pricing_per_kWh: 40,
         address: {
             line1: 'Mills Area, Janakpur',
             line2: 'Madhesh Province, Nepal'
@@ -202,13 +216,15 @@ export const evStations = [
     {
         _id: 'ev8',
         name: 'Biratnagar EV Power Hub',
-        image: ev8, // Replace with actual image file
+        email: 'biratnagarev@evstations.com',
+        password: 'BiratnagarEV@123',
+        image: ev8,
         charging_type: 'Superfast & Standard Charging',
         brand: 'MG',
         power_capacity: '220 kW',
         availability: '5 AM - 11 PM',
-        about: 'Biratnagar EV Power Hub is a state-of-the-art EV charging station offering both superfast and standard charging options. Designed for efficiency and convenience, our station ensures smooth, quick, and reliable charging services.',
-        pricing_per_kWh: 0.34, // Cost per kWh in $
+        about: 'State-of-the-art EV charging station with superfast and standard charging.',
+        pricing_per_kWh: 45,
         address: {
             line1: 'Main Road, Biratnagar',
             line2: 'Province 1, Nepal'
@@ -218,13 +234,15 @@ export const evStations = [
     {
         _id: 'ev9',
         name: 'Itahari EV Smart Station',
-        image: ev9, // Replace with actual image file
+        email: 'itahariev@evstations.com',
+        password: 'ItahariEV@123',
+        image: ev9,
         charging_type: 'Fast & Standard Charging',
         brand: 'BYD',
         power_capacity: '150 kW',
         availability: '6 AM - 10 PM',
-        about: 'Itahari EV Smart Station is a reliable charging hub for EV owners, providing high-speed charging with real-time status updates. Conveniently located, we ensure a smooth and efficient charging experience for all electric vehicle users.',
-        pricing_per_kWh: 0.26, // Cost per kWh in $
+        about: 'Conveniently located EV charging hub with high-speed charging options.',
+        pricing_per_kWh: 34,
         address: {
             line1: 'Mahendra Chowk, Itahari',
             line2: 'Province 1, Nepal'
@@ -234,44 +252,50 @@ export const evStations = [
     {
         _id: 'ev10',
         name: 'Damak EV Charging Hub',
-        image: ev10, // Replace with actual image file
+        email: 'damakev@evstations.com',
+        password: 'DamakEV@123',
+        image: ev10,
         charging_type: 'Ultra-Fast & Standard Charging',
         brand: 'BYD',
         power_capacity: '180 kW',
         availability: '5 AM - 11 PM',
-        about: 'Damak EV Charging Hub is a modern charging station designed to serve daily commuters and long-distance travelers. Offering ultra-fast and standard charging, we ensure quick and efficient charging with advanced technology and user-friendly payment options.',
-        pricing_per_kWh: 0.29, // Cost per kWh in $
+        about: 'Modern EV charging hub for commuters and long-distance travelers.',
+        pricing_per_kWh: 38,
         address: {
             line1: 'Birtamode Road, Damak',
             line2: 'Province 1, Nepal'
         }
     },
-
     {
         _id: 'ev11',
         name: 'Nepalgunj EV Power Station',
-        image: ev11, // Replace with actual image file
+        email: 'nepalgunjev@evstations.com',
+        password: 'NepalgunjEV@123',
+        image: ev11,
         charging_type: 'Superfast & Standard Charging',
         brand: 'Porsche',
         power_capacity: '200 kW',
         availability: '6 AM - 10 PM',
         about: 'Nepalgunj EV Power Station is a cutting-edge charging hub designed to meet the needs of electric vehicle owners. With fast and standard charging options, we ensure a seamless and efficient charging experience for all users.',
-        pricing_per_kWh: 0.31, // Cost per kWh in $
+        pricing_per_kWh: 41, // Converted to NPR
         address: {
             line1: 'Gharbaritol Road, Nepalgunj',
             line2: 'Lumbini Province, Nepal'
         }
     },
+
     {
         _id: 'ev12',
         name: 'Hetauda EV Charging Hub',
-        image: ev12, // Replace with actual image file
+        email: 'hetaudaev@evstations.com',
+        password: 'HetaudaEV@123',
+        image: ev12,
         charging_type: 'Ultra-Fast & Standard Charging',
         brand: 'Porsche',
         power_capacity: '220 kW',
         availability: '24/7',
         about: 'Hetauda EV Charging Hub provides top-notch EV charging solutions with ultra-fast and standard charging options. Strategically located on a major route, it ensures easy access and a seamless experience for all electric vehicle users.',
-        pricing_per_kWh: 0.33, // Cost per kWh in $
+        pricing_per_kWh: 44, // Converted to NPR
         address: {
             line1: 'Hetauda Industrial Area, Hetauda',
             line2: 'Bagmati Province, Nepal'
@@ -281,47 +305,55 @@ export const evStations = [
     {
         _id: 'ev13',
         name: 'Dhangadhi EV Smart Hub',
-        image: ev13, // Replace with actual image file
+        email: 'dhangadhi@evstations.com',
+        password: 'DhangadhiEV@123',
+        image: ev13,
         charging_type: 'Fast & Standard Charging',
         brand: 'Audi',
         power_capacity: '150 kW',
         availability: '6 AM - 10 PM',
         about: 'Dhangadhi EV Smart Hub is a leading EV charging station in Sudurpashchim, offering fast and standard charging options with digital payment facilities. Conveniently located, we ensure a smooth and hassle-free charging experience.',
-        pricing_per_kWh: 0.27, // Cost per kWh in $
+        pricing_per_kWh: 36, // Converted to NPR
         address: {
             line1: 'Attariya Chowk, Dhangadhi',
             line2: 'Sudurpashchim Province, Nepal'
         }
     },
+
     {
         _id: 'ev14',
         name: 'Birgunj EV Charging Plaza',
-        image: ev14, // Replace with actual image file
+        email: 'birgunjev@evstations.com',
+        password: 'BirgunjEV@123',
+        image: ev14,
         charging_type: 'Ultra-Fast & Standard Charging',
         brand: 'Kia',
         power_capacity: '200 kW',
         availability: '24/7',
         about: 'Birgunj EV Charging Plaza is strategically positioned near the India-Nepal border, ensuring reliable charging services for cross-border and local travelers. Equipped with the latest technology, it offers ultra-fast and standard charging solutions.',
-        pricing_per_kWh: 0.30, // Cost per kWh in $
+        pricing_per_kWh: 40, // Converted to NPR
         address: {
             line1: 'Powerhouse Road, Birgunj',
             line2: 'Madhesh Province, Nepal'
         }
     },
+
     {
         _id: 'ev15',
         name: 'Tulsipur GreenCharge Station',
-        image: ev15, // Replace with actual image file
+        email: 'tulsipur@evstations.com',
+        password: 'TulsipurEV@123',
+        image: ev15,
         charging_type: 'Fast & Standard Charging',
         brand: 'Kia',
         power_capacity: '140 kW',
         availability: '5 AM - 11 PM',
         about: 'Tulsipur GreenCharge Station is a well-equipped charging facility, serving travelers and commuters with its fast and standard charging points. With convenient access and eco-friendly solutions, we make EV charging effortless.',
-        pricing_per_kWh: 0.25, // Cost per kWh in $
+        pricing_per_kWh: 33, // Converted to NPR
         address: {
             line1: 'Bus Park Road, Tulsipur',
             line2: 'Lumbini Province, Nepal'
         }
     }
 
-]
+];
