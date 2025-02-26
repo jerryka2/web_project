@@ -1,6 +1,12 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useContext, useState } from 'react';
+import { toast } from 'react-toastify';
+import { AppContext } from '../context/AppContext';
 
 const Login = () => {
+
+    const { backendUrl, token, setToken } = useContext(AppContext)
+
     const [state, setState] = useState('Sign Up');
 
     const [email, setEmail] = useState('');
@@ -9,10 +15,39 @@ const Login = () => {
 
     const onSubmitHandler = async (event) => {
         event.preventDefault();
+
+        try {
+
+            if (state === 'Sign Up') {
+
+                const { data } = await axios.post(backendUrl + '/api/user/register', { name, password, email })
+                if (data.success) {
+                    localStorage.setItem('token', data.token)
+                    setToken(data.token)
+                } else {
+                    toast.error(data.message)
+                }
+
+            } else {
+
+                const { data } = await axios.post(backendUrl + '/api/user/login', { password, email })
+                if (data.success) {
+                    localStorage.setItem('token', data.token)
+                    setToken(data.token)
+                } else {
+                    toast.error(data.message)
+                }
+
+            }
+
+        } catch (error) {
+            toast.error(error.message)
+
+        }
     };
 
     return (
-        <form className="min-h-[80vh] flex items-center justify-center bg-gray-100 px-4">
+        <form onSubmit={onSubmitHandler} className="min-h-[80vh] flex items-center justify-center bg-gray-100 px-4">
             <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
                 {/* ======= Heading ======= */}
                 <h2 className="text-3xl font-extrabold text-gray-900 text-center">
@@ -64,7 +99,7 @@ const Login = () => {
                 </div>
 
                 {/* ======= Submit Button ======= */}
-                <button className="mt-6 w-full bg-green-500 text-white py-3 rounded-md font-semibold hover:bg-green-600 transition transform hover:scale-105">
+                <button type='submit' className="mt-6 w-full bg-green-500 text-white py-3 rounded-md font-semibold hover:bg-green-600 transition transform hover:scale-105">
                     {state === 'Sign Up' ? 'Create Account' : 'Login'}
                 </button>
 
