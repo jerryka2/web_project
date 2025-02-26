@@ -5,7 +5,8 @@ export const AppContext = createContext();
 
 const AppContextProvider = ({ children }) => {
     const [evStations, setEvStations] = useState([]);
-    const backendUrl = import.meta.env.VITE_BACKEND_URL; // ✅ Ensure this is set in .env
+    const backendUrl = import.meta.env.VITE_BACKEND_URL;
+    const [token, setToken] = useState('')
 
     // ✅ Fetch Stations from Backend
     const getStationData = async () => {
@@ -31,7 +32,10 @@ const AppContextProvider = ({ children }) => {
     // ✅ Provide context values
     const value = {
         evStations,
-        getStationData, // ✅ Added so other components can call it
+        getStationData,
+        token, setToken,
+        backendUrl
+
     };
 
     return (
