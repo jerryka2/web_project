@@ -1,5 +1,5 @@
+import axios from 'axios';
 import { createContext, useContext, useEffect, useState } from "react";
-import { evStations as initialEvStations } from "../assets/assets_frontend/assets"; // Ensure it's imported correctly
 
 export const AppContext = createContext();
 
@@ -13,12 +13,29 @@ const AppContextProvider = ({ children }) => {
         }, 1000); // Simulated delay
     }, []);
 
+
     const currencySymbol = "$";
+    const backendUrl = import.meta.env.VITE_BACKEND_URL
+    // const [evStations,setEvStations] = useState([])
 
     const value = {
         evStations,
         currencySymbol
-    };
+    }
+
+    const getStationData = async () => {
+        try {
+
+            const { data } = await axios.get(backendUrl + '/api/station/list')
+            if (data.success) {
+                setEvStations(data.evStations)
+
+            }
+
+        } catch (error) {
+
+        }
+    }
 
     return (
         <AppContext.Provider value={value}>
