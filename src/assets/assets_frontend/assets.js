@@ -5,6 +5,7 @@ import chats_icon from './chats_icon.svg'
 import contact_image from './contact_image.png'
 import cross_icon from './cross_icon.png'
 import dropdown_icon from './dropdown_icon.svg'
+import edit from "./edit.png"
 import ev1 from './ev1.jpg'
 import ev10 from './ev10.jpg'
 import ev11 from './ev11.jpg'
@@ -55,7 +56,8 @@ export const assets = {
     dropdown_icon,
     upload_icon,
     stripe_logo,
-    razorpay_logo
+    razorpay_logo,
+    edit
 }
 
 export const specialityData = [
