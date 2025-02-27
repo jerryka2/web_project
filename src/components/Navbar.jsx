@@ -6,7 +6,7 @@ import { AppContext } from '../context/AppContext';
 const Navbar = () => {
     const navigate = useNavigate();
 
-    const { token, setToken } = useContext(AppContext)
+    const { token, setToken, userData } = useContext(AppContext)
 
     const [showMenu, setShowMenu] = useState(false);
 
@@ -44,35 +44,36 @@ const Navbar = () => {
 
             {/* ======== Profile & Menu Button ======== */}
             <div className="flex items-center gap-6">
-                {token ? (
-                    <div className="relative group">
-                        <button className="flex items-center gap-3 bg-gray-100 px-4 py-2 rounded-full shadow-md hover:shadow-lg transition">
-                            <img className="w-10 h-10 rounded-full border-2 border-green-500" src={assets.profile_pic} alt="Profile" />
-                            <span className="text-gray-800 font-medium">Profile</span>
-                            <img className="w-3" src={assets.dropdown_icon} alt="Dropdown" />
-                        </button>
+                {token && userData
+                    ? (
+                        <div className="relative group">
+                            <button className="flex items-center gap-3 bg-gray-100 px-4 py-2 rounded-full shadow-md hover:shadow-lg transition">
+                                <img className="w-10 h-10 rounded-full border-2 border-green-500" src={userData.image} alt="Profile" />
+                                <span className="text-gray-800 font-medium">Profile</span>
+                                <img className="w-3" src={assets.dropdown_icon} alt="Dropdown" />
+                            </button>
 
-                        {/* Dropdown Menu */}
-                        <div className="absolute top-14 right-0 bg-white shadow-xl rounded-lg w-52 p-4 hidden group-hover:block z-30 transition-all duration-300">
-                            <p onClick={() => navigate('/myprofile')} className="cursor-pointer hover:text-green-500 transition py-2 px-3 hover:bg-gray-100 rounded-lg">
-                                My Profile
-                            </p>
-                            <p onClick={() => navigate('/my-appointments')} className="cursor-pointer hover:text-green-500 transition py-2 px-3 hover:bg-gray-100 rounded-lg">
-                                My Appointments
-                            </p>
-                            <p onClick={logout} className="cursor-pointer text-red-500 hover:text-red-700 transition py-2 px-3 hover:bg-gray-100 rounded-lg">
-                                Logout
-                            </p>
+                            {/* Dropdown Menu */}
+                            <div className="absolute top-14 right-0 bg-white shadow-xl rounded-lg w-52 p-4 hidden group-hover:block z-30 transition-all duration-300">
+                                <p onClick={() => navigate('/myprofile')} className="cursor-pointer hover:text-green-500 transition py-2 px-3 hover:bg-gray-100 rounded-lg">
+                                    My Profile
+                                </p>
+                                <p onClick={() => navigate('/my-appointments')} className="cursor-pointer hover:text-green-500 transition py-2 px-3 hover:bg-gray-100 rounded-lg">
+                                    My Appointments
+                                </p>
+                                <p onClick={logout} className="cursor-pointer text-red-500 hover:text-red-700 transition py-2 px-3 hover:bg-gray-100 rounded-lg">
+                                    Logout
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                ) : (
-                    <button
-                        onClick={() => navigate('/login')}
-                        className="bg-green-500 text-white px-6 py-3 rounded-full font-semibold hidden md:block hover:bg-green-600 transition"
-                    >
-                        Create Account
-                    </button>
-                )}
+                    ) : (
+                        <button
+                            onClick={() => navigate('/login')}
+                            className="bg-green-500 text-white px-6 py-3 rounded-full font-semibold hidden md:block hover:bg-green-600 transition"
+                        >
+                            Create Account
+                        </button>
+                    )}
 
                 {/* Mobile Menu Button */}
                 <img
