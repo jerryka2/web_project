@@ -1,32 +1,95 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useContext, useState } from 'react';
+import { toast } from 'react-toastify';
 import { assets } from '../assets/assets_frontend/assets';
+import { AppContext } from '../context/AppContext';
+
 
 const MyProfile = () => {
-    const [userData, setUserData] = useState({
-        name: "Hari Saran Shrestha",
-        image: assets.profile_pic,
-        email: 'harisaranswap@gmail.com',
-        phone: '9860000000',
-        address: {
-            line1: "57th Cross, Chandragiri",
-            line2: "Circle, Kathmandu, Nepal"
-        },
-        gender: 'Male',
-        dob: '2000-01-22'
-    });
 
-    const [isEdit, setIsEdit] = useState(false);
+    const { userData, setUserData, token, backendUrl, loadUserProfileData } = useContext(AppContext)
 
-    return (
+    const [isEdit, setIsEdit] = useState(false)
+    const [image, setImage] = useState(false)
+
+    const updateUserProfileData = async () => {
+
+        try {
+
+            const formData = new FormData()
+
+            formData.append('name', userData.name)
+            formData.append('phone', userData.phone)
+            formData.append('address', JSON.stringify(userData.address))
+            formData.append('gender', userData.gender)
+            formData.append('dob', userData.dob)
+
+            image && formData.append('image', image)
+
+            const { data } = await axios.post(backendUrl + '/api/user/update-profile', formData, { headers: { token } })
+
+            if (data.success) {
+                toast.success(data.message)
+                await loadUserProfileData()
+                setIsEdit(false)
+                setImage(false)
+
+            } else {
+                toast.error(data.message)
+            }
+
+
+        } catch (error) {
+            console.log(error)
+            toast.error(error.message)
+
+        }
+    }
+
+    return userData && (
         <div className="max-w-4xl mx-auto px-6 py-10 bg-white shadow-lg rounded-lg border border-gray-200">
             {/* Profile Image & Name Section */}
             <div className="text-center">
+
+                {
+                    isEdit ? (
+                        <label htmlFor="image" className="cursor-pointer flex flex-col items-center relative group">
+                            <div className="relative w-32 h-32 rounded-full border-4 border-green-500 shadow-md overflow-hidden">
+                                {/* Profile Image or Selected Image */}
+                                <img
+                                    src={image ? URL.createObjectURL(image) : userData.image}
+                                    alt="Profile Preview"
+                                    className="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-50"
+                                />
+
+                                {/* Upload Icon (Centered on Hover) */}
+                                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-30 rounded-full">
+                                    <img
+                                        src={assets.edit}
+                                        alt="Upload Icon"
+                                        className="w-10 h-10"
+                                    />
+                                </div>
+                            </div>
+
+                            <input
+                                onChange={(e) => setImage(e.target.files[0])}
+                                type="file"
+                                id="image"
+                                hidden
+                            />
+                        </label>
+                    ) : (
+                        <img
+                            src={userData.image}
+                            alt="Profile"
+                            className="w-32 h-32 object-cover rounded-full border-4 border-green-500 shadow-md"
+                        />
+                    )
+                }
+
                 <div className="relative w-32 h-32 mx-auto">
-                    <img
-                        src={userData.image}
-                        alt="Profile"
-                        className="w-full h-full rounded-full border-4 border-green-500 shadow-md"
-                    />
+
                 </div>
                 {isEdit ? (
                     <input
@@ -119,7 +182,7 @@ const MyProfile = () => {
             <div className="mt-6 text-center">
                 {isEdit ? (
                     <button
-                        onClick={() => setIsEdit(false)}
+                        onClick={updateUserProfileData}
                         className="bg-green-500 text-white px-6 py-3 rounded-md font-medium hover:bg-green-600 transition-transform transform hover:scale-105"
                     >
                         Save Information
