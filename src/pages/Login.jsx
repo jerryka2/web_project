@@ -1,11 +1,13 @@
 import axios from 'axios';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AppContext } from '../context/AppContext';
 
 const Login = () => {
 
     const { backendUrl, token, setToken } = useContext(AppContext)
+    const navigate = useNavigate()
 
     const [state, setState] = useState('Sign Up');
 
@@ -45,6 +47,12 @@ const Login = () => {
 
         }
     };
+
+    useEffect(() => {
+        if (token) {
+            navigate('/')
+        }
+    }, [token])
 
     return (
         <form onSubmit={onSubmitHandler} className="min-h-[80vh] flex items-center justify-center bg-gray-100 px-4">
