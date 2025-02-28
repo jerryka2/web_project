@@ -5,20 +5,20 @@ import { AppContext } from '../context/AppContext';
 
 const Navbar = () => {
     const navigate = useNavigate();
-
-    const { token, setToken, userData } = useContext(AppContext)
-
+    const { token, setToken, userData } = useContext(AppContext);
     const [showMenu, setShowMenu] = useState(false);
+    const [showDropdown, setShowDropdown] = useState(false); // ✅ Fix dropdown flickering
 
     const logout = () => {
-        setToken(false)
-        localStorage.removeItem('token')
-    }
-    // const [token, setToken] = useState(true);
+        console.log("🚪 Logging out...");
+        setToken(null);
+        localStorage.removeItem('token');
+        navigate('/login'); // ✅ Redirect to login after logout
+    };
 
     return (
         <div className="flex items-center justify-between text-sm py-4 mb-5 border-b border-gray-300 bg-white shadow-sm px-6">
-            {/* ======== Logo ======== */}
+            {/* 🔹 Logo */}
             <img
                 onClick={() => navigate('/')}
                 className="w-40 cursor-pointer transition-transform duration-300 hover:scale-105"
@@ -26,7 +26,7 @@ const Navbar = () => {
                 alt="Logo"
             />
 
-            {/* ======== Desktop Menu ======== */}
+            {/* 🔹 Desktop Menu */}
             <ul className="hidden md:flex items-center gap-8 font-medium text-gray-700">
                 {['/', '/map', '/stations', '/about', '/contact'].map((path, index) => (
                     <NavLink
@@ -42,19 +42,25 @@ const Navbar = () => {
                 ))}
             </ul>
 
-            {/* ======== Profile & Menu Button ======== */}
+            {/* 🔹 Profile & Menu Button */}
             <div className="flex items-center gap-6">
-                {token && userData
-                    ? (
-                        <div className="relative group">
-                            <button className="flex items-center gap-3 bg-gray-100 px-4 py-2 rounded-full shadow-md hover:shadow-lg transition">
-                                <img className="w-10 h-10 rounded-full border-2 border-green-500" src={userData.image} alt="Profile" />
-                                <span className="text-gray-800 font-medium">Profile</span>
-                                <img className="w-3" src={assets.dropdown_icon} alt="Dropdown" />
-                            </button>
+                {token && userData ? (
+                    <div className="relative">
+                        <button
+                            onClick={() => setShowDropdown(!showDropdown)}
+                            className="flex items-center gap-3 bg-gray-100 px-4 py-2 rounded-full shadow-md hover:shadow-lg transition"
+                        >
+                            <img className="w-10 h-10 rounded-full border-2 border-green-500" src={userData.image} alt="Profile" />
+                            <span className="text-gray-800 font-medium">Profile</span>
+                            <img className="w-3" src={assets.dropdown_icon} alt="Dropdown" />
+                        </button>
 
-                            {/* Dropdown Menu */}
-                            <div className="absolute top-14 right-0 bg-white shadow-xl rounded-lg w-52 p-4 hidden group-hover:block z-30 transition-all duration-300">
+                        {/* 🔹 Dropdown Menu */}
+                        {showDropdown && (
+                            <div
+                                className="absolute top-14 right-0 bg-white shadow-xl rounded-lg w-52 p-4 z-30 transition-all duration-300"
+                                onMouseLeave={() => setShowDropdown(false)} // ✅ Prevent flickering
+                            >
                                 <p onClick={() => navigate('/myprofile')} className="cursor-pointer hover:text-green-500 transition py-2 px-3 hover:bg-gray-100 rounded-lg">
                                     My Profile
                                 </p>
@@ -65,17 +71,18 @@ const Navbar = () => {
                                     Logout
                                 </p>
                             </div>
-                        </div>
-                    ) : (
-                        <button
-                            onClick={() => navigate('/login')}
-                            className="bg-green-500 text-white px-6 py-3 rounded-full font-semibold hidden md:block hover:bg-green-600 transition"
-                        >
-                            Create Account
-                        </button>
-                    )}
+                        )}
+                    </div>
+                ) : (
+                    <button
+                        onClick={() => navigate('/login')}
+                        className="bg-green-500 text-white px-6 py-3 rounded-full font-semibold hidden md:block hover:bg-green-600 transition"
+                    >
+                        Create Account
+                    </button>
+                )}
 
-                {/* Mobile Menu Button */}
+                {/* 🔹 Mobile Menu Button */}
                 <img
                     onClick={() => setShowMenu(true)}
                     className="w-7 md:hidden cursor-pointer transition-transform duration-300 hover:scale-110"
@@ -84,16 +91,22 @@ const Navbar = () => {
                 />
             </div>
 
-            {/* ======== Mobile Menu ======== */}
+            {/* 🔹 Mobile Menu */}
             <div className={`fixed inset-0 bg-black bg-opacity-50 z-50 transition-opacity ${showMenu ? "opacity-100 visible" : "opacity-0 invisible"}`}>
                 <div className={`fixed left-0 top-0 w-3/4 sm:w-2/3 h-full bg-white shadow-2xl transform transition-transform ${showMenu ? "translate-x-0" : "-translate-x-full"} duration-300`}>
-                    {/* Close Button & Logo */}
+
+                    {/* 🔹 Close Button & Logo */}
                     <div className="flex justify-between items-center p-6 border-b border-gray-200">
                         <img src={assets.logo} alt="Logo" className="w-36" />
-                        <img onClick={() => setShowMenu(false)} className="w-6 cursor-pointer hover:scale-110 transition" src={assets.cross_icon} alt="Close" />
+                        <img
+                            onClick={() => setShowMenu(false)}
+                            className="w-6 cursor-pointer hover:scale-110 transition"
+                            src={assets.cross_icon}
+                            alt="Close"
+                        />
                     </div>
 
-                    {/* Mobile Navigation Links */}
+                    {/* 🔹 Mobile Navigation Links */}
                     <ul className="flex flex-col gap-5 text-lg font-medium p-6">
                         {['/', '/map', '/stations', '/about', '/contact'].map((path, index) => (
                             <NavLink
@@ -108,6 +121,21 @@ const Navbar = () => {
                             </NavLink>
                         ))}
                     </ul>
+
+                    {/* 🔹 Mobile Profile & Logout (If logged in) */}
+                    {token && userData && (
+                        <div className="p-6 border-t border-gray-300">
+                            <p onClick={() => navigate('/myprofile')} className="cursor-pointer text-lg font-medium hover:text-green-500 transition py-3">
+                                My Profile
+                            </p>
+                            <p onClick={() => navigate('/my-appointments')} className="cursor-pointer text-lg font-medium hover:text-green-500 transition py-3">
+                                My Appointments
+                            </p>
+                            <p onClick={logout} className="cursor-pointer text-lg font-medium text-red-500 hover:text-red-700 transition py-3">
+                                Logout
+                            </p>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
