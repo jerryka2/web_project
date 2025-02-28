@@ -35,28 +35,28 @@ const Station = () => {
     };
 
     return (
-        <div className="max-w-7xl mx-auto px-6 py-10">
-            {/* Title */}
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 text-center">
+        <div className="max-w-7xl mx-auto px-6 py-14">
+            {/* 🔹 Title Section */}
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 text-center">
                 ⚡ Browse {selectedBrand ? selectedBrand.charAt(0).toUpperCase() + selectedBrand.slice(1) : 'All'} EV Charging Stations
             </h1>
 
-            {/* ======= Mobile Filter Button (Positioned on Left) ======= */}
-            <div className="md:hidden flex justify-start mt-4">
+            {/* 🔹 Mobile Filter Button */}
+            <div className="md:hidden flex justify-start mt-6">
                 <button
                     onClick={() => setShowFilter(true)}
-                    className="bg-green-500 text-white px-5 py-2 rounded-md font-medium shadow-md hover:bg-green-600 transition"
+                    className="bg-green-500 text-white px-6 py-3 rounded-lg font-medium shadow-md hover:bg-green-600 transition-transform transform hover:scale-105"
                 >
                     Filters
                 </button>
             </div>
 
-            {/* ======== Brand Selection for Desktop (Hidden on Mobile) ======== */}
-            <div className="hidden md:flex flex-wrap justify-center gap-4 my-6">
+            {/* 🔹 Desktop Brand Selection */}
+            <div className="hidden md:flex flex-wrap justify-center gap-4 my-8">
                 <button
                     onClick={() => handleBrandClick("all")}
-                    className={`px-6 py-3 border rounded-lg font-medium transition 
-                        ${selectedBrand === "" ? 'bg-green-500 text-white' : 'border-gray-300 hover:bg-gray-100'}`}
+                    className={`px-6 py-3 border rounded-lg font-medium transition-all duration-300 
+                ${selectedBrand === "" ? 'bg-green-500 text-white shadow-md' : 'border-gray-300 hover:bg-gray-100'}`}
                 >
                     All Brands
                 </button>
@@ -64,9 +64,9 @@ const Station = () => {
                     <button
                         key={index}
                         onClick={() => handleBrandClick(item.brand)}
-                        className={`px-6 py-3 border rounded-lg text-gray-700 font-medium transition 
-                            ${selectedBrand === item.brand.toLowerCase()
-                                ? 'bg-green-500 text-white'
+                        className={`px-6 py-3 border rounded-lg text-gray-700 font-medium transition-all duration-300 
+                    ${selectedBrand === item.brand.toLowerCase()
+                                ? 'bg-green-500 text-white shadow-md'
                                 : 'border-gray-300 hover:bg-gray-100'
                             }`}
                     >
@@ -75,7 +75,7 @@ const Station = () => {
                 ))}
             </div>
 
-            {/* ======= Mobile Filter Panel (Slide-in from Right) ======= */}
+            {/* 🔹 Mobile Filter Panel */}
             <div className={`fixed inset-0 bg-black bg-opacity-50 z-50 transition-opacity ${showFilter ? "opacity-100 visible" : "opacity-0 invisible"}`}>
                 <div className={`fixed right-0 top-0 w-3/4 sm:w-1/2 h-full bg-white shadow-lg transform transition-transform ${showFilter ? "translate-x-0" : "translate-x-full"} duration-300`}>
                     {/* Close Button & Title */}
@@ -90,8 +90,8 @@ const Station = () => {
                     <div className="p-6 flex flex-col gap-4">
                         <button
                             onClick={() => handleBrandClick("all")}
-                            className={`px-6 py-3 border rounded-lg font-medium transition 
-                                ${selectedBrand === "" ? 'bg-green-500 text-white' : 'border-gray-300 hover:bg-gray-100'}`}
+                            className={`px-6 py-3 border rounded-lg font-medium transition-all duration-300
+                        ${selectedBrand === "" ? 'bg-green-500 text-white shadow-md' : 'border-gray-300 hover:bg-gray-100'}`}
                         >
                             All Brands
                         </button>
@@ -99,9 +99,9 @@ const Station = () => {
                             <button
                                 key={index}
                                 onClick={() => handleBrandClick(item.brand)}
-                                className={`px-6 py-3 border rounded-lg text-gray-700 font-medium transition 
-                                    ${selectedBrand === item.brand.toLowerCase()
-                                        ? 'bg-green-500 text-white'
+                                className={`px-6 py-3 border rounded-lg text-gray-700 font-medium transition-all duration-300
+                            ${selectedBrand === item.brand.toLowerCase()
+                                        ? 'bg-green-500 text-white shadow-md'
                                         : 'border-gray-300 hover:bg-gray-100'
                                     }`}
                             >
@@ -112,21 +112,23 @@ const Station = () => {
                 </div>
             </div>
 
-            {/* ======== EV Stations Grid ======== */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-6">
+            {/* 🔹 EV Stations Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
                 {filterStation.length > 0 ? (
                     filterStation.map((item, index) => (
                         <div
                             key={index}
                             onClick={() => navigate(`/appointments/${item._id}`)}
-                            className="bg-white p-6 rounded-xl shadow-md hover:shadow-2xl hover:scale-105 transition duration-300 cursor-pointer"
+                            className="bg-white p-6 rounded-xl shadow-md hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-pointer border border-gray-200"
                         >
                             {/* Station Image */}
-                            <img
-                                src={item.image}
-                                alt={item.name}
-                                className="w-full h-44 object-cover rounded-lg"
-                            />
+                            <div className="overflow-hidden rounded-lg">
+                                <img
+                                    src={item.image}
+                                    alt={item.name}
+                                    className="w-full h-44 object-cover rounded-lg transition-transform duration-300 hover:scale-105"
+                                />
+                            </div>
 
                             {/* Station Info */}
                             <div className="mt-5 text-left">
@@ -157,6 +159,7 @@ const Station = () => {
                 )}
             </div>
         </div>
+
     );
 };
 

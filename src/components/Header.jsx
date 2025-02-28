@@ -3,52 +3,65 @@ import { assets } from '../assets/assets_frontend/assets';
 
 const Header = () => {
     return (
-        <div className='flex flex-col md:flex-row flex-wrap bg-green-500 rounded-lg px-6 md:px-12 lg:px-20 py-10'>
-            {/* ============= Left Section ================= */}
-            <div className='md:w-1/2 flex flex-col justify-center gap-6 py-6 text-center md:text-left'>
+        <div className="relative bg-green-500 rounded-lg px-6 md:px-12 lg:px-20 py-12 overflow-hidden">
 
-                {/* Main Heading */}
-                <h1 className='text-3xl md:text-5xl lg:text-6xl text-white font-bold leading-tight'>
-                    Reserve Your Charging Spot <br />
-                    <span className="text-gray-100">with <span className="text-yellow-300">Prescripto</span></span>
-                </h1>
+            {/* 🔹 Background Glow Effect */}
+            <div className="absolute -top-10 -left-10 w-48 h-48 bg-green-300 opacity-30 rounded-full blur-3xl"></div>
+            <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-green-300 opacity-30 rounded-full blur-3xl"></div>
 
-                {/* Single Group Image Styled to Look Like a Stacked Group (No Border) */}
-                <div className="flex justify-center md:justify-start mt-4 md:mt-6">
-                    <img
-                        src={assets.group_profiles}
-                        alt="Group Profiles"
-                        className='w-30 h-12 md:w-30 md:h-14 '
-                    />
+            <div className="flex flex-col md:flex-row items-center gap-10">
+
+                {/* ============= Left Section ================= */}
+                <div className="md:w-1/2 text-center md:text-left space-y-6">
+
+                    {/* 🚀 Main Heading */}
+                    <h1 className="text-3xl md:text-5xl lg:text-6xl text-white font-bold leading-tight">
+                        Reserve Your Charging Spot <br />
+                        <span className="text-gray-100">with <span className="text-yellow-300">Prescripto</span></span>
+                    </h1>
+
+                    {/* 🚀 Group Profiles */}
+                    <div className="flex justify-center md:justify-start mt-4">
+                        <img src={assets.group_profiles} alt="Group Profiles"
+                            className="w-32 h-14 md:w-36 md:h-16 transition-transform duration-300 hover:scale-105" />
+                    </div>
+
+                    {/* 🚀 Description */}
+                    <p className="text-white text-lg md:text-xl max-w-lg mx-auto md:mx-0 leading-relaxed">
+                        Explore our vast network of EV charging stations, pick the perfect spot, and reserve it instantly!
+                    </p>
+
+                    {/* 🚀 CTA Button */}
+                    <div className="flex justify-center md:justify-start">
+                        <a href="#our-brand"
+                            className="flex items-center gap-3 bg-white text-green-500 font-semibold px-6 py-3 rounded-lg shadow-lg 
+                                  transition-all duration-300 ease-in-out hover:bg-green-600 hover:text-white hover:scale-105 
+                                  active:scale-95 focus:ring-4 focus:ring-green-300 w-fit">
+
+                            <span className="text-lg">Book Now</span>
+                            <img src={assets.arrow_icon} alt="Arrow Icon"
+                                className="w-6 h-6 transition-transform duration-300 hover:translate-x-1" />
+                        </a>
+                    </div>
+
                 </div>
 
-                {/* Description */}
-                <p className='text-white text-lg md:text-xl max-w-lg mx-auto md:mx-0'>
-                    Explore our vast network of EV charging stations, <br />
-                    pick the perfect spot, and reserve it instantly!
-                </p>
+                {/* ============= Right Section (EV Station Image) ================ */}
+                <div className="md:w-1/2 flex justify-center">
+                    <div className="relative bg-white p-5 rounded-lg shadow-lg transition-transform duration-300 hover:scale-105">
 
-                {/* CTA Button - Green Background */}
-                <a href="#our-brand"
-                    className="flex items-center gap-3 bg-white text-green-400 font-semibold px-6 py-3 rounded-lg shadow-lg transition-all duration-300 ease-in-out hover:bg-green-600 hover:text-white w-fit mx-auto md:mx-0"
-                >
-                    <span className="text-lg">Book Now</span>
-                    <img
-                        src={assets.arrow_icon}
-                        alt="Arrow Icon"
-                        className="w-6 h-6 transition-all duration-300 ease-in-out hover:invert"
-                    />
-                </a>
+                        {/* 🔹 Floating Glow Effect */}
+                        <div className="absolute -top-4 -left-4 w-20 h-20 bg-green-300 opacity-30 rounded-full blur-3xl"></div>
+                        <div className="absolute -bottom-4 -right-4 w-20 h-20 bg-green-300 opacity-30 rounded-full blur-3xl"></div>
 
-            </div>
-
-            {/* ============= Right Section (EV Station Image) ================ */}
-            <div className='md:w-1/2 flex justify-center items-center mt-6 md:mt-0'>
-                <div className='bg-white p-5 rounded-lg shadow-lg'>
-                    <img className='w-full max-w-md md:max-w-lg rounded-lg' src={assets.header_img} alt="EV Charging Station" />
+                        <img className="w-full max-w-md md:max-w-lg rounded-lg"
+                            src={assets.header_img} alt="EV Charging Station" />
+                    </div>
                 </div>
+
             </div>
         </div>
+
     );
 };
 

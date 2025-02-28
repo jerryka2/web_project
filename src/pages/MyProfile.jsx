@@ -66,12 +66,12 @@ const MyProfile = () => {
     };
 
     return userData && (
-        <div className="max-w-3xl mx-auto px-6 py-10 bg-white shadow-xl rounded-2xl border border-gray-300">
+        <div className="max-w-3xl mx-auto px-6 py-12 bg-white shadow-2xl rounded-2xl border border-gray-300">
             {/* 🔹 Profile Image & Name Section */}
             <div className="text-center">
                 {isEdit ? (
                     <label htmlFor="image" className="cursor-pointer flex flex-col items-center relative group">
-                        <div className="relative w-36 h-36 rounded-full border-4 border-green-500 shadow-lg overflow-hidden transition-all duration-300 hover:scale-105">
+                        <div className="relative w-36 h-36 rounded-full border-4 border-green-500 shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105">
                             <img
                                 src={image ? URL.createObjectURL(image) : userData?.image || assets.default_profile}
                                 alt="Profile Preview"
@@ -87,7 +87,7 @@ const MyProfile = () => {
                     <img
                         src={userData?.image || assets.default_profile}
                         alt="Profile"
-                        className="w-36 h-36 object-cover rounded-full border-4 border-green-500 shadow-lg transition-all duration-300 hover:scale-105"
+                        className="w-36 h-36 object-cover rounded-full border-4 border-green-500 shadow-lg transition-transform duration-300 hover:scale-105"
                     />
                 )}
 
@@ -109,7 +109,7 @@ const MyProfile = () => {
             {/* 🔹 Contact Information */}
             <div>
                 <p className="text-xl font-semibold text-gray-800 mb-3">📞 Contact Information</p>
-                <div className="bg-gray-100 p-5 rounded-lg shadow-md border border-gray-200">
+                <div className="bg-gray-50 p-5 rounded-lg shadow-md border border-gray-200">
                     <p className="text-gray-700 font-medium">📧 Email:</p>
                     <p className="text-gray-600">{userData?.email || "No Email"}</p>
 
@@ -130,22 +130,22 @@ const MyProfile = () => {
             {/* 🔹 Address Section */}
             <div className="mt-6">
                 <p className="text-xl font-semibold text-gray-800 mb-3">📍 Address</p>
-                <div className="bg-gray-100 p-5 rounded-lg shadow-md border border-gray-200">
+                <div className="bg-gray-50 p-5 rounded-lg shadow-md border border-gray-200">
                     {isEdit ? (
-                        <div>
+                        <div className="space-y-2">
                             <input
                                 onChange={(e) => setUserData(prev => ({ ...prev, address: { ...prev.address, line1: e.target.value } }))}
                                 value={userData?.address?.line1 || ""}
                                 type="text"
                                 placeholder="Street Address"
-                                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-400 mt-1 shadow-sm"
+                                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-400 shadow-sm"
                             />
                             <input
                                 onChange={(e) => setUserData(prev => ({ ...prev, address: { ...prev.address, line2: e.target.value } }))}
                                 value={userData?.address?.line2 || ""}
                                 type="text"
                                 placeholder="City, State, Zip"
-                                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-400 mt-1 shadow-sm"
+                                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-400 shadow-sm"
                             />
                         </div>
                     ) : (
@@ -157,13 +157,13 @@ const MyProfile = () => {
             {/* 🔹 Gender & DOB */}
             <div className="mt-6">
                 <p className="text-xl font-semibold text-gray-800 mb-3">📋 Basic Information</p>
-                <div className="bg-gray-100 p-5 rounded-lg shadow-md border border-gray-200">
+                <div className="bg-gray-50 p-5 rounded-lg shadow-md border border-gray-200">
                     <p className="text-gray-700 font-medium">⚧ Gender:</p>
                     {isEdit ? (
                         <select
                             onChange={(e) => setUserData(prev => ({ ...prev, gender: e.target.value }))}
                             value={userData?.gender || ""}
-                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-400 mt-1 shadow-sm"
+                            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-400 shadow-sm"
                         >
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
@@ -177,16 +177,24 @@ const MyProfile = () => {
             {/* 🔹 Save Button */}
             <div className="mt-8 text-center">
                 {isEdit ? (
-                    <button onClick={updateUserProfileData} disabled={loading} className="bg-green-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-green-600 transition-transform transform hover:scale-105 shadow-lg">
+                    <button
+                        onClick={updateUserProfileData}
+                        disabled={loading}
+                        className="bg-green-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-green-600 transition-transform transform hover:scale-105 shadow-lg"
+                    >
                         {loading ? "Updating..." : "Save Changes"}
                     </button>
                 ) : (
-                    <button onClick={() => setIsEdit(true)} className="bg-gray-700 text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-800 transition-transform transform hover:scale-105 shadow-lg">
+                    <button
+                        onClick={() => setIsEdit(true)}
+                        className="bg-gray-700 text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-800 transition-transform transform hover:scale-105 shadow-lg"
+                    >
                         Edit Profile
                     </button>
                 )}
             </div>
         </div>
+
     );
 };
 

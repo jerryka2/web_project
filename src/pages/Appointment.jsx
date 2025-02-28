@@ -147,36 +147,45 @@ const Appointment = () => {
     if (loading) return <p className="text-center text-gray-500 mt-6">⏳ Loading station details...</p>;
 
     return statInfo && (
-        <div className="max-w-5xl mx-auto px-6 py-10 bg-white rounded-xl shadow-lg border border-gray-200">
-
+        <div className="max-w-5xl mx-auto px-8 py-14 bg-white rounded-2xl shadow-xl border border-gray-200">
             {/* 🔹 Station Information */}
-            <div className="flex flex-col sm:flex-row gap-6 items-center bg-gray-100 p-6 rounded-lg shadow-md">
-                <div className="w-full sm:max-w-72 rounded-lg overflow-hidden shadow-md flex justify-center">
-                    <img src={statInfo.image} alt={statInfo.name} className="w-full h-auto object-cover rounded-lg" />
+            <div className="flex flex-col sm:flex-row gap-8 items-center bg-gray-50 p-8 rounded-lg shadow-md">
+                {/* 🚀 Station Image */}
+                <div className="w-full sm:max-w-80 rounded-xl overflow-hidden shadow-md flex justify-center">
+                    <img
+                        src={statInfo.image}
+                        alt={statInfo.name}
+                        className="w-full h-56 object-cover rounded-xl transition-transform duration-300 hover:scale-105"
+                    />
                 </div>
 
+                {/* 🚀 Station Details */}
                 <div className="flex-1">
-                    <p className="text-3xl font-bold text-gray-900">{statInfo.name}</p>
+                    <h1 className="text-4xl font-extrabold text-gray-900">{statInfo.name}</h1>
                     <p className="text-gray-600 mt-2 text-lg">{statInfo.charging_type} | {statInfo.power_capacity}</p>
 
-                    <p className="text-lg font-semibold text-gray-900 mt-4">Pricing per kWh:
-                        <span className="text-green-600 font-bold"> रु {statInfo.pricing_per_kWh}</span>
-                    </p>
+                    <div className="flex items-center gap-2 mt-4">
+                        <p className="text-lg font-semibold text-gray-900">
+                            Pricing per kWh:
+                        </p>
+                        <span className="text-green-600 text-2xl font-bold">रु {statInfo.pricing_per_kWh}</span>
+                    </div>
                 </div>
             </div>
 
             {/* 🔹 Booking Slots */}
-            <div className="mt-10">
-                <h2 className="text-2xl font-bold text-gray-800 text-center">🕒 Select a Booking Slot</h2>
+            <div className="mt-12">
+                <h2 className="text-3xl font-bold text-gray-800 text-center">🕒 Select a Booking Slot</h2>
 
-                {/* 🔹 Date Selection */}
-                <div className="flex justify-center mt-6 space-x-3">
+                {/* 🚀 Date Selection */}
+                <div className="flex justify-center flex-wrap gap-4 mt-6">
                     {statSlots.map((item, index) => (
                         <button
                             key={index}
-                            className={`px-5 py-3 rounded-lg font-semibold text-lg transition duration-300 ${index === slotIndex
-                                ? 'bg-green-500 text-white shadow-md'
-                                : 'bg-gray-200 text-gray-800 hover:bg-green-500 hover:text-white'}`}
+                            className={`px-6 py-3 rounded-lg font-semibold text-lg transition-all duration-300 
+                        ${index === slotIndex
+                                    ? 'bg-green-500 text-white shadow-lg scale-110'
+                                    : 'bg-gray-200 text-gray-800 hover:bg-green-500 hover:text-white hover:scale-105'}`}
                             onClick={() => setSlotIndex(index)}
                         >
                             {item.day} - {item.date.getDate()}
@@ -184,37 +193,49 @@ const Appointment = () => {
                     ))}
                 </div>
 
-                {/* 🔹 Scrollable Time Slot Selection */}
-                <div className="relative flex items-center mt-6">
-                    <button onClick={scrollLeft} className="absolute left-0 bg-gray-300 px-3 py-2 rounded-full shadow-md hover:bg-gray-400">
+                {/* 🚀 Scrollable Time Slot Selection */}
+                <div className="relative flex items-center mt-8">
+                    <button
+                        onClick={scrollLeft}
+                        className="absolute left-0 bg-gray-300 px-4 py-2 rounded-full shadow-md hover:bg-gray-400 transition-all duration-300"
+                    >
                         ◀
                     </button>
-                    <div ref={timeSliderRef} className="flex overflow-x-auto gap-3 px-10 py-3 scrollbar-hide">
+                    <div ref={timeSliderRef} className="flex overflow-x-auto gap-3 px-12 py-3 scrollbar-hide">
                         {statSlots[slotIndex]?.timeSlots.map((slot, index) => (
-                            <button key={index}
-                                className={`px-4 py-2 rounded-lg text-lg font-medium whitespace-nowrap transition-all ${selectedTime === slot.time
-                                    ? 'bg-green-600 text-white shadow-md'
-                                    : 'bg-gray-300 text-gray-800 hover:bg-green-500 hover:text-white'}`}
+                            <button
+                                key={index}
+                                className={`px-5 py-3 rounded-lg text-lg font-medium whitespace-nowrap transition-all duration-300 
+                            ${selectedTime === slot.time
+                                        ? 'bg-green-600 text-white shadow-md scale-110'
+                                        : 'bg-gray-300 text-gray-800 hover:bg-green-500 hover:text-white hover:scale-105'}`}
                                 onClick={() => setSelectedTime(slot.time)}
                             >
                                 {slot.time}
                             </button>
                         ))}
                     </div>
-                    <button onClick={scrollRight} className="absolute right-0 bg-gray-300 px-3 py-2 rounded-full shadow-md hover:bg-gray-400">
+                    <button
+                        onClick={scrollRight}
+                        className="absolute right-0 bg-gray-300 px-4 py-2 rounded-full shadow-md hover:bg-gray-400 transition-all duration-300"
+                    >
                         ▶
                     </button>
                 </div>
 
-                {/* 🔹 Book Appointment Button */}
-                <div className="mt-8 flex justify-center">
-                    <button onClick={bookAppointment}
-                        className="bg-green-600 text-white text-lg font-semibold px-6 py-3 rounded-lg shadow-md hover:bg-green-700 transition-all hover:scale-105">
+                {/* 🚀 Confirm Appointment Button */}
+                <div className="mt-10 flex justify-center">
+                    <button
+                        onClick={bookAppointment}
+                        className="bg-green-600 text-white text-lg font-semibold px-10 py-4 rounded-lg shadow-lg 
+                    hover:bg-green-700 transition-all duration-300 hover:scale-110"
+                    >
                         ✅ Confirm Appointment
                     </button>
                 </div>
             </div>
         </div>
+
     );
 };
 

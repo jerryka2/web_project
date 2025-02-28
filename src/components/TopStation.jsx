@@ -7,49 +7,45 @@ const TopStation = () => {
     const { evStations } = useAppContext();
 
     return (
-        <div className="text-center py-12 bg-gradient-to-b from-gray-50 to-gray-100">
-            {/* Section Title */}
+        <div className="text-center py-16 bg-gradient-to-b from-gray-50 to-gray-100">
+            {/* 🔹 Section Title */}
             <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900">
                 ⚡ Top EV Charging Stations Near You
             </h1>
 
-            {/* Description */}
+            {/* 🔹 Description */}
             <p className="text-gray-600 text-lg max-w-3xl mx-auto mt-4">
                 Discover the best-rated EV charging stations in your area. Check availability, browse locations, and charge your EV effortlessly with the latest technology.
             </p>
 
-            {/* Charging Stations Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mt-10 px-6 md:px-12">
+            {/* 🔹 Charging Stations Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 mt-12 px-6 md:px-12">
                 {evStations.slice(0, 8).map((item, index) => (
                     <div
                         key={index}
                         onClick={() => navigate(`/appointments/${item._id}`)}
-                        className="bg-white p-6 rounded-xl shadow-md hover:shadow-2xl hover:scale-105 transition duration-300 cursor-pointer"
+                        className="relative bg-white p-6 rounded-2xl shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer"
                     >
-                        {/* Station Image */}
-                        <img
-                            src={item.image}
-                            alt={item.name}
-                            className="w-full h-44 object-cover rounded-lg"
-                        />
-
-                        {/* Station Info */}
-                        <div className="mt-5 text-left">
+                        {/* 🚀 Station Image */}
+                        <div className="relative">
+                            <img
+                                src={item.image}
+                                alt={item.name}
+                                className="w-full h-48 object-cover rounded-lg"
+                            />
                             {/* Availability Badge */}
-                            <div className="mb-2">
-                                <span className="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full">
-                                    🟢 Available
-                                </span>
-                            </div>
+                            <span className="absolute top-3 left-3 bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full shadow-sm">
+                                🟢 Available
+                            </span>
+                        </div>
 
-                            {/* Station Name */}
+                        {/* 🚀 Station Info */}
+                        <div className="mt-5 text-left">
                             <p className="text-lg font-semibold text-gray-900">{item.name}</p>
-
-                            {/* Charging Type & Power */}
                             <p className="text-gray-600 text-sm mt-1">{item.charging_type} | {item.power_capacity}</p>
 
-                            {/* Location */}
-                            <p className="text-sm text-gray-500 mt-2">
+                            {/* 🚀 Location */}
+                            <p className="text-sm text-gray-500 mt-2 flex items-center gap-1">
                                 📍 {item.address.line1}, {item.address.line2}
                             </p>
                         </div>
@@ -57,17 +53,18 @@ const TopStation = () => {
                 ))}
             </div>
 
-            {/* View More Button */}
+            {/* 🔹 View More Button */}
             <button
                 onClick={() => {
                     navigate('/stations');
                     window.scrollTo(0, 0);
                 }}
-                className="mt-10 bg-green-600 text-white px-8 py-3 rounded-lg font-medium shadow-md hover:bg-green-700 hover:scale-105 transition"
+                className="mt-12 bg-green-600 text-white px-8 py-3 rounded-lg font-medium shadow-md hover:bg-green-700 hover:scale-105 transition-all duration-300"
             >
                 View More Stations
             </button>
         </div>
+
     );
 };
 

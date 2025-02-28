@@ -76,7 +76,7 @@ const Login = () => {
 
     return (
         <form onSubmit={onSubmitHandler} className="min-h-[80vh] flex items-center justify-center bg-gray-100 px-4">
-            <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
+            <div className="w-full max-w-md bg-white p-10 rounded-xl shadow-xl">
                 {/* 🔹 Heading */}
                 <h2 className="text-3xl font-extrabold text-gray-900 text-center">
                     {state === 'Sign Up' ? 'Join Us Today!' : 'Welcome Back!'}
@@ -97,7 +97,7 @@ const Login = () => {
                             value={name}
                             required
                             placeholder="Enter your full name"
-                            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-400 mt-1"
+                            className="w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 mt-1 transition-all"
                         />
                     </div>
                 )}
@@ -111,7 +111,7 @@ const Login = () => {
                         value={email}
                         required
                         placeholder="Enter your email"
-                        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-400 mt-1"
+                        className="w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 mt-1 transition-all"
                         autoComplete="email"
                     />
                 </div>
@@ -125,7 +125,7 @@ const Login = () => {
                         value={password}
                         required
                         placeholder="Enter your password"
-                        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-400 mt-1"
+                        className="w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 mt-1 transition-all"
                         autoComplete={state === 'Sign Up' ? "new-password" : "current-password"} // ✅ Improves security
                     />
                 </div>
@@ -134,7 +134,8 @@ const Login = () => {
                 <button
                     type='submit'
                     disabled={loading}
-                    className={`mt-6 w-full ${loading ? 'bg-gray-400' : 'bg-green-500'} text-white py-3 rounded-md font-semibold transition transform hover:scale-105`}
+                    className={`mt-6 w-full text-white py-3 rounded-md font-semibold transition-all duration-300 transform 
+                        ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-green-500 hover:bg-green-600 hover:scale-105'}`}
                 >
                     {loading ? "Processing..." : state === 'Sign Up' ? 'Create Account' : 'Login'}
                 </button>
@@ -145,7 +146,7 @@ const Login = () => {
                         ? "Already have an account?"
                         : "New to our platform?"}
                     <span
-                        className="text-green-500 font-semibold cursor-pointer hover:underline ml-1"
+                        className="text-green-500 font-semibold cursor-pointer hover:underline ml-1 transition-all"
                         onClick={toggleState} // ✅ Function for toggling state
                     >
                         {state === "Sign Up" ? "Login here" : "Sign up here"}
@@ -153,6 +154,7 @@ const Login = () => {
                 </p>
             </div>
         </form>
+
     );
 };
 
