@@ -1,30 +1,83 @@
-import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { assets } from '../assets/assets_frontend/assets';
+import { toast } from 'react-toastify';
 import { useAppContext } from '../context/AppContext';
 
 const Appointment = () => {
     const { statId } = useParams();
-    const { evStations } = useAppContext();
-    const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const { evStations, backendUrl, token, getStationData } = useAppContext();
     const navigate = useNavigate();
+    const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
     const [statInfo, setStatInfo] = useState(null);
     const [statSlots, setStatSlots] = useState([]);
     const [slotIndex, setSlotIndex] = useState(0);
-    const [selectedTime, setSelectedTime] = useState(null);
-    const [relatedStations, setRelatedStations] = useState([]);
+    const [selectedTime, setSelectedTime] = useState('');
+    const [loading, setLoading] = useState(true);
+    const [bookedSlots, setBookedSlots] = useState({});
+    const timeSliderRef = useRef(null); // ✅ Scroll Reference
 
+    // ✅ Fetch station data and update state
     useEffect(() => {
-        const foundStation = evStations.find(stat => stat._id === statId);
-        if (foundStation) {
-            setStatInfo(foundStation);
+        if (!evStations.length) return;
 
-            // Set Related Stations (filtering out current station)
-            setRelatedStations(evStations.filter(stat => stat.brand === foundStation.brand && stat._id !== statId));
+        const foundStation = evStations.find(stat => stat._id === statId);
+        if (!foundStation) {
+            toast.error("⚠️ Station not found!");
+            navigate("/");
+            return;
         }
+
+        setStatInfo(foundStation);
+        setBookedSlots(foundStation.slots_booked || {});
+        setLoading(false);
     }, [evStations, statId]);
 
+    // ✅ Function to book an appointment
+    const bookAppointment = async () => {
+        if (!statInfo) {
+            toast.error("⚠️ No station selected!");
+            return;
+        }
+        if (!selectedTime) {
+            toast.error("⚠️ Please select a time slot!");
+            return;
+        }
+
+        const appointmentData = {
+            stationData: {
+                _id: statInfo._id,
+                name: statInfo.name,
+                location: {
+                    line1: statInfo.address.line1,
+                    line2: statInfo.address.line2
+                },
+                image: statInfo.image
+            },
+            slotData: statSlots[slotIndex]?.date.toISOString().split("T")[0].replace(/-/g, "_"),
+            slotTime: selectedTime,
+            amount: statInfo.pricing_per_kWh
+        };
+
+        try {
+            console.log("🔵 Sending appointment request:", JSON.stringify(appointmentData, null, 2));
+
+            const { data } = await axios.post(`${backendUrl}/api/user/book-appointment`, appointmentData, {
+                headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" }
+            });
+
+            console.log("✅ Appointment booked successfully:", data);
+            toast.success("✅ Appointment confirmed!");
+            navigate("/my-appointments");
+        } catch (error) {
+            console.error("❌ API Error:", error.response?.data?.message || error.message);
+            toast.error(error.response?.data?.message || "Failed to book appointment");
+        }
+    };
+
+
+    // ✅ Generate time slots while removing booked ones
     useEffect(() => {
         if (!statInfo) return;
 
@@ -38,29 +91,37 @@ const Appointment = () => {
 
                 let startTime = new Date(currentDate);
                 let endTime = new Date(currentDate);
-                endTime.setHours(21, 0, 0, 0); // Until 9 PM
+                endTime.setHours(23, 59, 0, 0);
 
                 if (i === 0) {
                     startTime.setHours(today.getHours() + 1, 0, 0, 0);
-                    if (startTime.getHours() < 10) {
-                        startTime.setHours(10, 0, 0, 0);
+                    if (startTime.getHours() < 1) {
+                        startTime.setHours(1, 0, 0, 0);
                     }
                 } else {
-                    startTime.setHours(10, 0, 0, 0); // Future days start from 10 AM
+                    startTime.setHours(1, 0, 0, 0);
                 }
+
+                let slotDate = `${currentDate.getDate()}_${currentDate.getMonth() + 1}_${currentDate.getFullYear()}`;
+                let bookedTimes = bookedSlots[slotDate] || [];
 
                 let timeSlots = [];
                 while (startTime < endTime) {
-                    timeSlots.push({
-                        datetime: new Date(startTime),
-                        time: startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-                    });
+                    let timeString = startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+
+                    if (!bookedTimes.includes(timeString)) {
+                        timeSlots.push({
+                            datetime: new Date(startTime),
+                            time: timeString,
+                        });
+                    }
+
                     startTime.setHours(startTime.getHours() + 1);
                 }
 
                 slots.push({
                     day: daysOfWeek[currentDate.getDay()],
-                    date: currentDate.getDate(),
+                    date: currentDate,
                     timeSlots: timeSlots,
                 });
             }
@@ -70,111 +131,89 @@ const Appointment = () => {
         generateSlots();
     }, [statInfo]);
 
-    return statInfo && (
-        <div className="max-w-7xl mx-auto px-6 py-10">
-            {/* 🚀 Station Info Section */}
-            <div className="flex flex-col sm:flex-row gap-6 items-center">
+    // ✅ Scroll function for Time Slot Slider
+    const scrollLeft = () => {
+        if (timeSliderRef.current) {
+            timeSliderRef.current.scrollBy({ left: -100, behavior: 'smooth' });
+        }
+    };
 
-                {/* Left: Centered Station Image */}
+    const scrollRight = () => {
+        if (timeSliderRef.current) {
+            timeSliderRef.current.scrollBy({ left: 100, behavior: 'smooth' });
+        }
+    };
+
+    if (loading) return <p className="text-center text-gray-500 mt-6">⏳ Loading station details...</p>;
+
+    return statInfo && (
+        <div className="max-w-5xl mx-auto px-6 py-10 bg-white rounded-xl shadow-lg border border-gray-200">
+
+            {/* 🔹 Station Information */}
+            <div className="flex flex-col sm:flex-row gap-6 items-center bg-gray-100 p-6 rounded-lg shadow-md">
                 <div className="w-full sm:max-w-72 rounded-lg overflow-hidden shadow-md flex justify-center">
-                    <img
-                        src={statInfo.image}
-                        alt={statInfo.name}
-                        className="w-full h-auto object-cover rounded-lg"
-                    />
+                    <img src={statInfo.image} alt={statInfo.name} className="w-full h-auto object-cover rounded-lg" />
                 </div>
 
-                {/* Right: Station Details */}
-                <div className="flex-1 border border-gray-400 rounded-lg p-8 bg-white shadow-md">
-                    <p className="flex items-center gap-2 text-2xl font-medium text-gray-900">
-                        {statInfo.name}
-                        <img src={assets.verified_icon} alt="Verified" className="w-5 h-5" />
+                <div className="flex-1">
+                    <p className="text-3xl font-bold text-gray-900">{statInfo.name}</p>
+                    <p className="text-gray-600 mt-2 text-lg">{statInfo.charging_type} | {statInfo.power_capacity}</p>
+
+                    <p className="text-lg font-semibold text-gray-900 mt-4">Pricing per kWh:
+                        <span className="text-green-600 font-bold"> रु {statInfo.pricing_per_kWh}</span>
                     </p>
-                    <p className="text-gray-600 mt-2">{statInfo.charging_type} | {statInfo.power_capacity}</p>
-
-                    {/* About Section */}
-                    <div className="mt-4">
-                        <p className="text-lg font-semibold text-gray-800 flex items-center gap-2">
-                            About <img src={assets.info_icon} alt="Info" className="w-4 h-4" />
-                        </p>
-                        <p className="text-gray-600 mt-2">{statInfo.about}</p>
-                    </div>
-
-                    {/* 🚀 Pricing Section (Now in Nepali Currency) */}
-                    <div className="mt-4">
-                        <p className="text-lg font-semibold text-gray-900">
-                            Pricing per kWh:
-                            <span className="text-green-600 font-bold"> रु {statInfo.pricing_per_kWh}</span>
-                        </p>
-                    </div>
                 </div>
             </div>
 
-            {/*  ========================== Booking Slots ==================== */}
+            {/* 🔹 Booking Slots */}
             <div className="mt-10">
-                <h2 className="text-2xl font-bold text-gray-800 text-center">🕒 Booking Slots</h2>
+                <h2 className="text-2xl font-bold text-gray-800 text-center">🕒 Select a Booking Slot</h2>
 
-                {/* Styled Date Selection Section */}
-                <div className="flex justify-center mt-6 space-x-4">
-                    {statSlots.length > 0 && statSlots.map((item, index) => (
-                        <div
+                {/* 🔹 Date Selection */}
+                <div className="flex justify-center mt-6 space-x-3">
+                    {statSlots.map((item, index) => (
+                        <button
                             key={index}
-                            className={`cursor-pointer px-4 py-2 rounded-lg border text-center transition ${index === slotIndex
-                                    ? 'bg-green-500 text-white border-green-600'
-                                    : 'bg-white text-gray-700 border-gray-300'
-                                } hover:bg-green-600 hover:text-white`}
+                            className={`px-5 py-3 rounded-lg font-semibold text-lg transition duration-300 ${index === slotIndex
+                                ? 'bg-green-500 text-white shadow-md'
+                                : 'bg-gray-200 text-gray-800 hover:bg-green-500 hover:text-white'}`}
                             onClick={() => setSlotIndex(index)}
                         >
-                            <p className="font-semibold">{item.day}</p>
-                            <p className="text-lg font-bold">{item.date}</p>
-                        </div>
+                            {item.day} - {item.date.getDate()}
+                        </button>
                     ))}
                 </div>
 
-                {/* 🚀 Scrollable Time Slots */}
-                <div className="mt-6 overflow-x-auto whitespace-nowrap no-scrollbar">
-                    <div className="flex space-x-4 px-2 py-2">
-                        {statSlots.length > 0 && statSlots[slotIndex]?.timeSlots.map((slot, index) => (
-                            <button
-                                key={index}
-                                className={`px-4 py-2 rounded-md font-medium transition ${selectedTime === slot.time
-                                        ? 'bg-green-500 text-white'
-                                        : 'bg-gray-200 text-gray-700 hover:bg-green-500 hover:text-white'
-                                    }`}
+                {/* 🔹 Scrollable Time Slot Selection */}
+                <div className="relative flex items-center mt-6">
+                    <button onClick={scrollLeft} className="absolute left-0 bg-gray-300 px-3 py-2 rounded-full shadow-md hover:bg-gray-400">
+                        ◀
+                    </button>
+                    <div ref={timeSliderRef} className="flex overflow-x-auto gap-3 px-10 py-3 scrollbar-hide">
+                        {statSlots[slotIndex]?.timeSlots.map((slot, index) => (
+                            <button key={index}
+                                className={`px-4 py-2 rounded-lg text-lg font-medium whitespace-nowrap transition-all ${selectedTime === slot.time
+                                    ? 'bg-green-600 text-white shadow-md'
+                                    : 'bg-gray-300 text-gray-800 hover:bg-green-500 hover:text-white'}`}
                                 onClick={() => setSelectedTime(slot.time)}
                             >
                                 {slot.time}
                             </button>
                         ))}
                     </div>
+                    <button onClick={scrollRight} className="absolute right-0 bg-gray-300 px-3 py-2 rounded-full shadow-md hover:bg-gray-400">
+                        ▶
+                    </button>
                 </div>
 
-                {/* 🚀 Styled "Book Your Appointment" Button */}
+                {/* 🔹 Book Appointment Button */}
                 <div className="mt-8 flex justify-center">
-                    <button
-                        className="bg-green-500 text-white font-semibold text-lg px-6 py-3 rounded-lg shadow-md transition 
-                        hover:bg-green-600 hover:scale-105"
-                    >
-                        Book Your Appointment
+                    <button onClick={bookAppointment}
+                        className="bg-green-600 text-white text-lg font-semibold px-6 py-3 rounded-lg shadow-md hover:bg-green-700 transition-all hover:scale-105">
+                        ✅ Confirm Appointment
                     </button>
                 </div>
             </div>
-
-            {/* 🚀 Related Charging Stations Section */}
-            {relatedStations.length > 0 && (
-                <div className="mt-14">
-                    <h2 className="text-2xl font-bold text-gray-800 text-center">🔌 Related EV Charging Stations</h2>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-6">
-                        {relatedStations.map((station, index) => (
-                            <div key={index} onClick={() => navigate(`/appointments/${station._id}`)} className="cursor-pointer bg-white p-6 rounded-xl shadow-md hover:shadow-2xl hover:scale-105 transition duration-300">
-                                <img src={station.image} alt={station.name} className="w-full h-44 object-cover rounded-lg" />
-                                <p className="text-lg font-semibold text-gray-900 mt-3">{station.name}</p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            )}
         </div>
     );
 };
